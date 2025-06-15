@@ -1,18 +1,20 @@
 {
     // A human-readable name for your development environment.
     "name": "Ayon Development Environment",
-    // Specifies how to build the container. We're pointing to our custom Dockerfile.
+    // Specifies how to build the container. We're now pointing to our custom Dockerfile.
     "build": {
         "dockerfile": "Dockerfile",
         "context": "..", // The build context is the root of your project.
         "args": {
-            // Pass the non-root username to the Dockerfile.
+            // Pass the non-root username to the Dockerfile. This makes it flexible.
             "USERNAME": "ayondev"
         }
     },
+
     // A command that runs after the container is created but before you connect.
-    // We'll use a script to keep this clean.
+    // We'll use a script to keep this clean. We will refactor this script next.
     "postCreateCommand": "bash .devcontainer/scripts/post-create.sh",
+
     // The user that your terminal and VS Code will run as inside the container.
     "remoteUser": "ayondev",
     // VS Code-specific settings and extensions to ensure a consistent IDE experience.
@@ -24,7 +26,8 @@
                 "python.testing.pytestEnabled": true,
                 "python.testing.pytestArgs": [
                     "tests"
-                ], // --- Linting and Formatting (Ruff) ---
+                ],
+                // --- Linting and Formatting (Ruff) ---
                 "editor.defaultFormatter": "charliermarsh.ruff",
                 "editor.formatOnSave": true,
                 "[python]": {
@@ -43,13 +46,20 @@
                 // --- Type Checking (Mypy) ---
                 "python.linting.mypyEnabled": true,
                 "python.linting.enabled": true,
+
                 // --- Terminal Settings (Zsh, Starship & Nerd Fonts) ---
                 "terminal.integrated.defaultProfile.linux": "zsh",
+                // We installed "MesloLGM Nerd Font" in our Dockerfile.
                 "terminal.integrated.fontFamily": "MesloLGM Nerd Font",
+
                 // --- General Editor Settings ---
                 "files.eol": "\n",
                 "files.insertFinalNewline": true,
                 "files.trimTrailingWhitespace": true,
+                "editor.tabSize": 4, // Standard Python indentation
+                "editor.insertSpaces": true, // Use spaces instead of tabs
+                "editor.fontSize": 14, // Comfortable font size for coding
+                // Using a Nerd Font for the editor as well for consistency.
                 "editor.fontFamily": "JetBrainsMono Nerd Font",
                 "editor.rulers": [
                     80,

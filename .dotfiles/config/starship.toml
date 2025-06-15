@@ -1,0 +1,64 @@
+# A clean and informative Starship configuration for Ayon development.
+# Documentation: https://starship.rs/config/
+
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$python\
+$docker_context\
+$line_break\
+$character"""
+
+# Don't show a new line between prompts
+add_newline = false
+
+[username]
+show_always = true
+format = "[$user]($style)@"
+style_user = "yellow bold"
+style_root = "red bold"
+
+[hostname]
+ssh_only = false
+format = "[$hostname]($style) "
+style = "green bold"
+
+[directory]
+truncation_length = 3
+truncate_to_repo = true # More useful to see the path relative to the git root
+style = "blue bold"
+
+[git_branch]
+symbol = " " # Nerd Font symbol for a branch
+format = "on [$symbol$branch]($style) "
+style = "purple bold"
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style) )'
+style = "red bold"
+conflicted = "⚔️"
+ahead = "↑"
+behind = "↓"
+diverged = "⇕"
+untracked = "???"
+stashed = "📦"
+modified = "📝"
+staged = '[++\($count\)](green)'
+renamed = "»"
+deleted = "✘"
+
+[python]
+# This format shows the Python version and the name of the virtual environment.
+symbol = "🐍 "
+format = 'via [${symbol}(${version} )(\($virtualenv\) )]($style)'
+style = "yellow bold"
+
+[docker_context]
+format = "via [🐳 $context](blue bold)"
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
