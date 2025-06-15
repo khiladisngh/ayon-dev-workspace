@@ -1,0 +1,83 @@
+{
+    // A human-readable name for your development environment.
+    "name": "Ayon Development Environment",
+    // Specifies how to build the container. We're pointing to our custom Dockerfile.
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": "..", // The build context is the root of your project.
+        "args": {
+            // Pass the non-root username to the Dockerfile.
+            "USERNAME": "ayondev"
+        }
+    },
+    // A command that runs after the container is created but before you connect.
+    // We'll use a script to keep this clean.
+    "postCreateCommand": "bash .devcontainer/scripts/post-create.sh",
+    // The user that your terminal and VS Code will run as inside the container.
+    "remoteUser": "ayondev",
+    // VS Code-specific settings and extensions to ensure a consistent IDE experience.
+    "customizations": {
+        "vscode": {
+            "settings": {
+                // --- Python Settings ---
+                "python.defaultInterpreterPath": "/home/ayondev/.venv/bin/python",
+                "python.testing.pytestEnabled": true,
+                "python.testing.pytestArgs": [
+                    "tests"
+                ], // --- Linting and Formatting (Ruff) ---
+                "editor.defaultFormatter": "charliermarsh.ruff",
+                "editor.formatOnSave": true,
+                "[python]": {
+                    "editor.defaultFormatter": "charliermarsh.ruff",
+                    "editor.codeActionsOnSave": {
+                        "source.fixAll": "explicit",
+                        "source.organizeImports": "explicit"
+                    }
+                },
+                "[json]": {
+                    "editor.defaultFormatter": "vscode.json-language-features"
+                },
+                "[jsonc]": {
+                    "editor.defaultFormatter": "vscode.json-language-features"
+                },
+                // --- Type Checking (Mypy) ---
+                "python.linting.mypyEnabled": true,
+                "python.linting.enabled": true,
+                // --- Terminal Settings (Zsh, Starship & Nerd Fonts) ---
+                "terminal.integrated.defaultProfile.linux": "zsh",
+                "terminal.integrated.fontFamily": "MesloLGM Nerd Font",
+                // --- General Editor Settings ---
+                "files.eol": "\n",
+                "files.insertFinalNewline": true,
+                "files.trimTrailingWhitespace": true,
+                "editor.fontFamily": "JetBrainsMono Nerd Font",
+                "editor.rulers": [
+                    80,
+                    120 // Visual guides for line length
+                ]
+            },
+            "extensions": [
+                // --- Essential Python Tooling ---
+                "ms-python.python", // Core Python support
+                "ms-toolsai.jupyter", // Jupyter support for notebooks
+                "charliermarsh.ruff", // Ruff linter/formatter integration
+                // --- Git & Collaboration ---
+                "eamodio.gitlens", // Supercharges Git features
+                "GitHub.copilot", // Your AI pair programmer
+                "GitHub.copilot-chat", // AI chat for coding assistance
+                "GitHub.vscode-pull-request-github", // GitHub PR support
+                "GitHub.vscode-github-actions", // GitHub Actions support
+                // --- Editor Enhancement & File Support ---
+                "tamasfe.even-better-toml", // TOML file support (for pyproject.toml)
+                "redhat.vscode-yaml", // YAML file support (for pre-commit)
+                "vscode-icons-team.vscode-icons", // File icons for better navigation
+                "ms-vscode.cpptools", // C/C++ support (if needed)
+                "oderwat.indent-rainbow", // Makes indentation more readable
+                "usernamehw.errorlens", // Highlights errors inline
+                // --- Container/System Tooling ---
+                "ms-azuretools.vscode-docker", // Manage Docker from within VS Code
+                "ms-azuretools.vscode-containers" // Manage Dev Containers
+            ]
+        }
+    }
+}

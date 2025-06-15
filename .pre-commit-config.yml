@@ -1,0 +1,32 @@
+# This file configures the pre-commit hooks that run automatically
+# before each git commit to ensure code quality and consistency.
+
+repos:
+  # Standard hooks for checking file formatting and preventing common mistakes.
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0 # Use the latest stable version
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-toml
+      - id: check-added-large-files
+      - id: detect-private-key
+
+  # Ruff for lightning-fast linting and formatting.
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Find the latest ruff version that matches your pyproject.toml
+    rev: v0.4.4
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+      - id: ruff-format
+
+  # Mypy for static type checking.
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: 'v1.10.0' # Use the latest stable version
+    hooks:
+      - id: mypy
+        # You might need to add dependencies here that mypy needs to find types for.
+        additional_dependencies: ["types-requests"]
